@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>Contador</h1>
+        <h1>{{ title }}</h1>
         <div class="doble_fila">
             <div>
                 <p>{{ numero }}<sup>2</sup>={{ calcularCuadrado() }}</p>
@@ -19,9 +19,12 @@
 
             </div>
         </div>
+        <!--
+        directivas permiten gestionar eventos en la pagina web
+        comienzan con 'v-' -->
         <div>
             <button v-on:click="incrementar()">+1</button>
-            <button v-on:click="decrementar()">-1</button>
+            <button @click="decrementar()">-1</button>
         </div>
         <!-- <p>{{ numero }}<sup>2</sup>={{calc}}</p> -->
 
@@ -50,11 +53,39 @@
 
 <script>
 export default {
+    //Definicion de Props 1:
+    //     props: [
+    //     'title', 'value'
+    //   ],
+    //Definicion de Props 2:
+    //Tipos de props
+    // props: {
+    //     title: String,
+    //     value: Number,
+    //     p1: Boolean,
+    //     p2: Array,
+    //     p3: Object,
+    //     p4: Function,
+    //     p5: Date,
+    //     p6: Symbol,
+    // },
+    //Definicion de Props 2:
+    props: {
+        title: String,
+        value: {
+            type: Number,
+            required: false,
+            default: 80,
+            validator(value) {
+                return value>0;
+            }
+        },
+    },
     // option Api data()
     data() {
         return {
-            numero: 5,
-            nombre: 'Emil Verkade',
+            numero: this.value,
+            titulo: 'Contador',
             joel: false,
             usr: {
                 nombre: 'Emil',
@@ -70,11 +101,11 @@ export default {
             console.log('entra al metodo');
             return this.numero ** 2;
         },
-        incrementar(){
+        incrementar() {
             this.numero++;
 
         },
-        decrementar(){
+        decrementar() {
             this.numero--;
         }
     },
@@ -87,8 +118,17 @@ export default {
             return this.numero ** 2;
         }
     },
-    // directivas permiten gestionar eventos en la pagina web
-    // comienzan con v-
+    created(){
+        if(this.value>0) {
+            console.log('Valor correcto')
+        } else{
+            throw new Error("Valor ingresado es incorrecto")
+        }
+    }
+    // <!-- props, son parametros personalizados que permiten que 
+    //  un componente hijo reciba valores definidos por un componnete padre -->
+
+
 }
 </script>
 
