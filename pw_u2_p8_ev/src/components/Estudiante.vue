@@ -7,14 +7,27 @@
         <input v-model="nuevoNombre" id="id_nombre" type="text">
         <label for="id_apellido">Apellido:</label>
         <input v-model="nuevoApellido" id="id_apellido" type="text">
+        
+        <label for="id_edad">Edad:</label>
+        <input v-model="nuevaEdad" id="id_edad" type="number">
+        
+        <label for="id_genero">Genero:</label>
+        <input v-model="nuevoGenero" id="id_genero" type="text">
+        
+        <label for="id_mascota">Mascota:</label>
+        <input v-model="nuevaMascota" id="id_mascota" type="text">
+
         <button v-on:click="agregarEstudiante()">Agregar Estudiante</button>
         <p>
             {{ nuevoNombre }}
             {{ nuevoApellido }}
+            {{ nuevoGenero }}
+            {{ nuevaEdad }}
+            {{ nuevaMascota }}
 
         </p>
         <ul>
-            <li v-for="{ nombre, apellido } in lista" :key="nombre">{{ nombre }} - {{ apellido }}</li>
+            <li v-for="{ nombre, apellido, genero, edad, mascota } in lista" :key="nombre">{{ nombre }} - {{ apellido }} - {{ genero }} - {{ edad }} - {{ mascota }}</li>
         </ul>
     </div>
 </template>
@@ -25,12 +38,15 @@ export default {
         return {
             nuevoNombre: 'Emil',
             nuevoApellido: 'Verkade',
+            nuevoGenero: 'Masculino',
+            nuevaEdad: 23,
+            nuevaMascota: 'clotilda la gallina',
             lista: [
-                { nombre: 'Emil', apellido: 'Verkade' },
-                { nombre: 'Mat', apellido: 'Gomez' },
-                { nombre: 'Ren', apellido: 'Parra' },
-                { nombre: 'Kev', apellido: 'Andrade' },
-                { nombre: 'Jos', apellido: 'Teran' },
+                { nombre: 'Emil', apellido: 'Verkade', edad: 23, genero: 'Masculino', mascota: 'Cevichocho' },
+                { nombre: 'Mat', apellido: 'Gomez', edad: 23, genero: 'Masculino', mascota: 'Cevichocho' },
+                { nombre: 'Ren', apellido: 'Parra', edad: 23, genero: 'Masculino', mascota: 'Cevichocho' },
+                { nombre: 'Kev', apellido: 'Andrade', edad: 23, genero: 'Masculino', mascota: 'Cevichocho' },
+                { nombre: 'Jos', apellido: 'Teran', edad: 23, genero: 'Masculino', mascota: 'Cevichocho' },
 
             ],
         }
@@ -39,7 +55,10 @@ export default {
         agregarEstudiante(){
             const nuevo={
                 nombre: this.nuevoNombre,
-                apellido: this.nuevoApellido
+                apellido: this.nuevoApellido,
+                edad: this.nuevaEdad,
+                genero: this.nuevoGenero,
+                listaMascotas: this.nuevaListaMascotas,
             }
             this.lista.unshift(nuevo);
         }
