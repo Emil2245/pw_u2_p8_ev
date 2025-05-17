@@ -1,5 +1,14 @@
 <template>
     <div class="container">
+        <!-- v-if construye el elemento -->
+        <div v-if="mostrar">
+            <h1>Estudiante Guardado</h1>
+        </div>
+        <!-- v-show lo oculta o lo muestra -->
+        <div v-show="mostrar">
+            <h2>Estudiante Guardado</h2>
+        </div>
+
         <label for="id_nombre">Nombre:</label>
         <!-- Directiva v-model: input se vincula a la propiedad reactiva -->
         <!-- MVC: el modelo es el texto, y el controlador es el JS -->
@@ -33,10 +42,27 @@
             {{ nuevaMascota }}
 
         </p>
-        <ul>
-            <li v-for="{ nombre, apellido, genero, edad, mascota } in lista" :key="nombre">{{ nombre }} - {{ apellido }}
-                - {{ genero }} - {{ edad }} - {{ mascota }}</li>
-        </ul>
+        <table>
+            <thead>
+                <tr id="table">
+                    <th> Nombre</th>
+                    <th> Apellido</th>
+                    <th> Genero</th>
+                    <th> Edad</th>
+                    <th> Mascota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="{ nombre, apellido, genero, edad, mascota } in lista" :key="nombre">
+                    <td>{{ nombre }}</td>
+                    <td>{{ apellido }}</td>
+                    <td>{{ genero }}</td>
+                    <td>{{ edad }}</td>
+                    <td>{{ mascota }}</td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -57,6 +83,7 @@ export default {
                 { nombre: 'Jos', apellido: 'Teran', edad: 23, genero: 'Masculino', mascota: 'Cevichocho' },
 
             ],
+            mostrar: false,
         }
     },
     methods: {
@@ -69,6 +96,18 @@ export default {
                 listaMascotas: this.nuevaListaMascotas,
             }
             this.lista.unshift(nuevo);
+            this.mostrar = true;
+            this.limpiar();
+            setTimeout(() => {
+                this.mostrar = false;
+            }, 3000)
+        },
+        limpiar() {
+            this.nuevoNombre = '';
+            this.nuevoApellido = '';
+            this.nuevaEdad = 0;
+            this.nuevoGenero = '';
+            this.nuevaListaMascotas = '';
         }
     }
 
@@ -131,19 +170,78 @@ button {
     margin: 10px auto;
 }
 
-ul {
+table {
+    /* border-collapse: separate; */
+    border-spacing: 0;
     list-style: none;
     margin-top: 30px;
+    min-width: 80%;
+    margin: auto auto;
+
 }
 
-li {
-    background: #f8f9fa;
-    padding: 10px;
-    border-radius: 20px;
+thead {
+    border: none;
+    border-radius: 100px;
     margin-bottom: 5px;
     color: #333;
-    font-size: small;
+    font-size: normal;
     font-weight: bolder;
+    border: #333;
+
 
 }
+
+th {
+    border-radius: 20px;
+    background-color: #ddd;
+}
+
+td {
+    background: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid lightblue;
+}
+
+/* table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+ 
+thead {
+  background-color: #f4f6f8;
+}
+ 
+thead th {
+  text-align: left;
+  padding: 15px;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #e3e6ea;
+}
+ 
+tbody tr {
+  transition: background-color 0.2s;
+}
+ 
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+ 
+tbody tr:hover {
+  background-color: #eef3f9;
+}
+ 
+tbody td {
+  padding: 15px;
+  border-bottom: 1px solid #e3e6ea;
+  color: #444;
+} */
 </style>

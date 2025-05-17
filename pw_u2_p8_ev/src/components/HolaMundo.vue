@@ -8,7 +8,7 @@
   </div>
 </template>
 <script></script>
-<style>
+<style scoped>
   .titulo{
   color: red;}
   h2{ background: lightgreen;}
