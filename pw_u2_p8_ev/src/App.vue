@@ -3,14 +3,18 @@
   <!-- <ContadorView /> -->
   <!-- <EstudianteView/> -->
   <!-- <EstudianteTablaView/> -->
-  <CarroView />
+  <!-- <CarroView /> -->
+   <PreguntaView/>
 </template>
 
 <script>
+// import Pregunta from './components/Pregunta.vue';
+
   // import HolaMundoView from '@/views/HolaMundoView.vue'
   // import ContadorView from '@/views/ContadorView.vue'
-  import EstudianteTablaView from "@/views/EstudianteTablaView.vue";
-  import CarroView from "@/views/CarroView.vue";
+  // import EstudianteTablaView from "@/views/EstudianteTablaView.vue";
+  // import CarroView from "@/views/CarroView.vue";
+  import PreguntaView from '@/views/PreguntaView.vue'
 
   export default {
     name: "App",
@@ -19,7 +23,8 @@
       // ContadorView,
       // EstudianteView,
       // EstudianteTablaView,
-      CarroView,
+      // CarroView,
+      PreguntaView,
     },
   };
 </script>
