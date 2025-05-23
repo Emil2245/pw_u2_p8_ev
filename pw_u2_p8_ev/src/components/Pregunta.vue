@@ -1,13 +1,13 @@
 <template>
     <div class="container">
-        <img src="https://yesno.wtf/assets/no/19-2062f4c91189b1f88a9e809c10a5b0f0.gif" alt="No hubo ese placeholder"
-            srcset="">
+        <img v-if="imagen" :src="imagen" alt="No hubo ese placeholder" srcset="">
         <div class="container-2">
 
         </div>
         <div class="pregunta-container">
             <input v-model="pregunta" type="text" placeholder="Hazme una pregunta">
             <p>Recuerda terminar con el signo de pregunta '?'</p>
+            <div v-if="esValida"></div>
             <h2>{{ pregunta }}</h2>
             <h1>{{ respuesta }}</h1>
         </div>
@@ -15,21 +15,40 @@
 </template>
 
 <script>
+import { consultarFachada } from '@/clients/YesNoClient'
+
 export default {
     data() {
         return {
             pregunta: null,
             respuesta: null,
-
+            imagen: null,
+            esValida: null,
         }
     },
     watch: {
-        pregunta(value, oldValue){
-            // if(value.endsWith(, endPosition))
-            console.log('Actual: '+value)
-            console.log('Old: '+oldValue)
+        pregunta(value, oldValue) {
+            this.esValida = false;
+            if (value.endsWith('?')) {
+                console.log('Actual: ' + value)
+                console.log('Old: ' + oldValue)
+                console.log(this.consumirAPI())
+            }
         }
     },
+    methods: {
+        async consumirAPI() {
+            const resp = await consultarFachada();
+            console.log(resp);
+            console.log(resp.image);
+            console.log(resp.test);
+            console.log(resp.forced);
+            this.respuesta = resp.answer;
+            this.imagen = resp.image;
+        }
+    },
+    // para consumir un api, hay que tener un cliente
+    // UNA API POR DOMINIO DE NEGOCIO
     mounted() {
 
     }
